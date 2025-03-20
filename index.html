@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+    content="DemoGen: Synthetic Demonstration Generation for Data-Efficient Visuomotor Policy Learning">
+  <meta name="keywords" content="Data Generation, Imitation Learning, Visuomotor Policy, Robotic Manipulation, DemoGen, demogen">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+    DyWA | Dynamics-adaptive World Action Model for Generalizable Non-prehensile Manipulation
+  </title>
+
+  <!-- Thumbnail for social media sharing -->
+  <meta property="og:image" content="media/images/thu_logo.png">
+
+  <!-- Favicon -->
+  <link rel="icon" href="medias/images/pku_logo.png" type="image/jpeg">
+
+  <script>
+    window.dataLayer = window.dataLayer || [];
+  </script>
+
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <link rel="stylesheet" href="./static/source_serif_4.css">
+  <link rel="stylesheet" href="./static/source_sans_3.css">  
+  <link rel="stylesheet" href="./static/academicons.min.css">
+  <link rel="stylesheet" href="./static/fontawesome/css/fontawesome.css">
+  <link rel="stylesheet" href="./static/fontawesome/css/brands.css">
+  <link rel="stylesheet" href="./static/fontawesome/css/light.css">
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+</head>
+<!-- <body onload="updateInTheWild();updateBimanual();"> -->
+
+
+  
+<section class="hero">
+  <div class="hero-body" style="padding-top: 1.5%;">
+    <div class="container is-fullhd">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title" style="color:black; white-space: nowrap;">
+            <span style="font-style: italic; font-weight: 800;">
+              DyWA:
+            </span>
+            <span>
+              Dynamics-adaptive World Action Model <br> for Generalizable Non-prehensile Manipulation
+            </span>
+          </h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a target="_blank" href="https://jiangranlv.github.io/">Jiangran Lyu</a><sup>1,2</sup>,
+            </span>
+            <span class="author-block">
+              <a target="_blank" href="https://openreview.net/profile?id=~Ziming_Li2">Ziming Li</a><sup>1,2</sup>,
+            </span>
+            <span class="author-block">
+              <a target="_blank" href="https://scholar.google.com/citations?user=wRBbtl8AAAAJ&hl=en">Xuesong Shi</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a target="_blank" href="https://co1one.github.io/">Chaoyi Xu</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a target="_blank" href="https://cfcs.pku.edu.cn/english/people/faculty/yizhouwang/index.htm">Yizhou Wang</a><sup>1,&#x271D;</sup>,
+            </span>
+            <span class="author-block">
+              <a target="_blank" href="https://hughw19.github.io/">He Wang</a><sup>1,2,&#x271D;</sup>
+            </span>
+          </div>
+          <div class="is-size-5 affiliation">
+            <sup>1</sup>CFCS, School of Computer Science, Peking University,
+            <sup>2</sup>Galbot
+          </div>
+          <br>
+          <div class="affiliation-note">
+            <sup>&#x271D;</sup> indicates Corresponding Authors
+          </div>
+          <div class="button-container">
+            <a href="./paper.pdf" target="_blank" class="button" style="background-color: #f2f2f2;border: transparent;"><i class="fa-light fa-file"></i>&emsp14;PDF</a>
+            <a href="" target="_blank" class="button" style="background-color: #f2f2f2;border: transparent;"><i class="ai ai-arxiv"></i>&emsp14;arXiv</a>
+            <!-- <a href="https://youtu.be/rNhptjL-um8" target="_blank" class="button"><i class="fa-light fa-film"></i>&emsp14;Video</a> -->
+            <a href="" target="_blank" class="button" style="background-color: #f2f2f2;border: transparent;"><i class="fa-light fa-code"></i>&emsp14;Code</a>
+            <!-- <a href="https://huggingface.co/datasets/Fanqi-Lin/Processed-Task-Dataset" target="_blank" class="button" style="background-color: #f2f2f2;border: transparent;"><i class="fa-light fa-folder"></i>&emsp14;Data</a> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-widescreen">
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns is-vcentered  is-centered">
+          <video id="teaser" controls height="100%" width="100%">
+            <source src="medias/videos/supp/supp.mp4"
+                    type="video/mp4">
+          </video>
+          </br>
+        </div>
+        <br>
+        <h2 class="subtitle has-text-centered" style="margin-top: -0.8em;">
+          After being trained in simulation, our policy achieves zero-shot sim-to-real transfer and generalizes across diverse dynamic properties, including variations in object geometry, object physical property (e.g., slipperiness and non-uniform mass distribution), and surface friction.
+        </h2>
+      </div>
+    </div>
+  </div>
+
+<div class="container is-max-widescreen">
+<hr style="margin-top: 1em;">
+<div class="columns is-centered has-text-centered">
+  <div class="column is-four-fifths">
+    
+    <h2 class="title is-3" style="margin-bottom: 0.5em; color:black">Abstract</h2>
+    <img style="margin-bottom: 5px;" src="medias/images/teaser_v5.png" class="method-image" /><br>
+    <div class="content has-text-justified">
+      <p>
+        Nonprehensile manipulation is crucial for handling objects that are too thin, large, or otherwise ungraspable in unstructured environments. While conventional planning-based approaches struggle with complex contact modeling, learning-based methods have recently emerged as a promising alternative. However, existing learning-based approaches face two major limitations: they heavily rely on multi-view cameras and precise pose tracking, and they fail to generalize across varying physical conditions, such as changes in object mass and table friction.  
+To address these challenges, we propose the  <i>Dynamics-Adaptive Action Model (DyWA)</i> , a novel framework that enhances action learning by jointly predicting future states while adapting to dynamics variations based on historical trajectories. By unifying the modeling of geometry, state, physics, and robot actions, <i>DyWA</i> enables more robust policy learning under partial observability.
+Compared to baselines, our method improves the success rate by 31.5% using only single-view point cloud observations in the simulation. Furthermore, <i>DyWA</i> achieves an average success rate of 68% in real-world experiments, demonstrating its ability to generalize across diverse object geometries, adapt to varying table friction, and robustness in challenging scenarios such as half-filled water bottles and slippery surfaces.
+      </p>
+    </div>
+  </div>
+</div>
+
+
+
+<br>
+<hr style="margin-top: 1em;">
+<div class="rows is-centered has-text-centered">
+  <h2 class="title is-3" style="margin-bottom: 0.8em; color:black">Experiments</h2>
+    <h3 class="title is-4" style="margin-bottom: 0.5em; color:black">Simulation and Real-World Setups</h3>
+      <div class="columns is-vcentered  is-centered">
+        <img style="margin: 15px 20px; width: 90%;" src="medias/images/sim_setup_v1.png" class="method-image" />
+        <img style="margin: 15px 20px; width: 60%;" src="medias/images/real_setup.png" class="method-image" />
+        <img style="margin: 15px 20px; width: 90%;" src="medias/images/real_objects.png" class="method-image" />
+      </div>
+      <p class="content has-text-justified">
+        We argue that a  generalizable non-prehensile manipulation policy in a realistic robotic setting should not only accommodate diverse object 
+        geometries but also adapt to varying physical properties, all while relying solely on a single-camera setup without the need for additional tracking modules.
+        Left: Simulation Setups. Right: Real-World Setups and 10 unseen objects for evaluation.
+      </p>
+
+    <h3 class="title is-4" style="margin-top: 1.8em; margin-bottom: 0.8em; color:black">Simulation Rollouts</h3>
+    <div class="rows">
+      <div class="columns">
+        <div class="column has-text-centered">
+          <video id="dist1"
+            controls
+            muted
+            autoplay
+            loop controlsList="nodownload"
+            width="99%">
+            <source src="medias/videos/sim/bear.mp4" 
+            type="video/mp4">
+          </video>
+        </div>
+
+        <div class="column has-text-centered">
+          <video id="dist1"
+            controls
+            muted
+            autoplay
+            loop controlsList="nodownload"
+            width="99%">
+            <source src="medias/videos/sim/driver.mp4" 
+            type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column has-text-centered">
+          <video id="dist1"
+            controls
+            muted
+            autoplay
+            loop controlsList="nodownload"
+            width="99%">
+            <source src="medias/videos/sim/fish.mp4" 
+            type="video/mp4">
+          </video>
+        </div>
+
+        <div class="column has-text-centered">
+          <video id="dist1"
+            controls
+            muted
+            autoplay
+            loop controlsList="nodownload"
+            width="99%">
+            <source src="medias/videos/sim/sofa.mp4" 
+            type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <h3 class="title is-4" style="margin-top: 1.8em; margin-bottom: 0.8em; color:black">Generalize across Diverse Gemotries</h3>
+      <div class="rows">
+        <div class="columns">
+          <div class="column has-text-centered">
+            <video id="dist1"
+              controls
+              muted
+              autoplay
+              loop controlsList="nodownload"
+              width="99%">
+              <source src="medias/videos/object/book.mp4" 
+              type="video/mp4">
+            </video>
+          </div>
+  
+          <div class="column has-text-centered">
+            <video id="dist1"
+              controls
+              muted
+              autoplay
+              loop controlsList="nodownload"
+              width="99%">
+              <source src="medias/videos/object/cylinder.mp4" 
+              type="video/mp4">
+            </video>
+          </div>
+
+          <div class="column has-text-centered">
+            <video id="dist1"
+              controls
+              muted
+              autoplay
+              loop controlsList="nodownload"
+              width="99%">
+              <source src="medias/videos/object/dianasour.mp4" 
+              type="video/mp4">
+            </video>
+          </div>
+        </div>
+  
+        <div class="columns">
+          <div class="column has-text-centered">
+            <video id="dist1"
+              controls
+              muted
+              autoplay
+              loop controlsList="nodownload"
+              width="99%">
+              <source src="medias/videos/object/mug.mp4" 
+              type="video/mp4">
+            </video>
+          </div>
+  
+          <div class="column has-text-centered">
+            <video id="dist1"
+              controls
+              muted
+              autoplay
+              loop controlsList="nodownload"
+              width="99%">
+              <source src="medias/videos/object/switch.mp4" 
+              type="video/mp4">
+            </video>
+          </div>
+
+          <div class="column has-text-centered">
+            <video id="dist1"
+              controls
+              muted
+              autoplay
+              loop controlsList="nodownload"
+              width="99%">
+              <source src="medias/videos/object/car.mp4" 
+              type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+
+    <!-- 插入一行四个视频，floor文件夹下面 -->
+
+    <h3 class="title is-4" style="margin-top: 1.8em; margin-bottom: 0.5em; color:black">Generalize across Different Table Frictions</h3>
+    <div class="columns">
+      <div class="column has-text-centered">
+        <video id="dist1"
+          controls
+          muted
+          autoplay
+          loop controlsList="nodownload"
+          width="99%">
+          <source src="medias/videos/floor/silver.mp4" 
+          type="video/mp4">
+        </video>
+      </div>
+
+      <div class="column has-text-centered">
+        <video id="dist1"
+          controls
+          muted
+          autoplay
+          loop controlsList="nodownload"
+          width="99%">
+          <source src="medias/videos/floor/car.mp4" 
+          type="video/mp4">
+        </video>
+      </div>
+
+      <div class="column has-text-centered">
+        <video id="dist1"
+          controls
+          muted
+          autoplay
+          loop controlsList="nodownload"
+          width="99%">
+          <source src="medias/videos/floor/green.mp4" 
+          type="video/mp4">
+        </video>
+      </div>
+
+      <div class="column has-text-centered">
+        <video id="dist1"
+          controls
+          muted
+          autoplay
+          loop controlsList="nodownload"
+          width="99%">
+          <source src="medias/videos/floor/pink.mp4" 
+          type="video/mp4">
+        </video>
+      </div>
+    </div>
+
+    <h3 class="title is-4" style="margin-top: 1.8em; margin-bottom: 0.5em; color:black">Handling Objects with Non-uniform Mass Distribution</h3>
+    <div class="columns">
+      <div class="column has-text-centered">
+        <video id="dist1"
+          controls
+          muted
+          autoplay
+          loop controlsList="nodownload"
+          width="99%">
+          <source src="medias/videos/non-homo/bottle.mp4"
+          type="video/mp4">
+        </video>
+      </div>
+      <div class="column has-text-centered">
+        <video id="dist1"
+          controls
+          muted
+          autoplay
+          loop controlsList="nodownload"
+          width="99%">
+          <source src="medias/videos/non-homo/coffee.mp4"
+          type="video/mp4">
+        </video>
+      </div>
+    </div>
+
+    <h3 class="title is-4" style="margin-top: 1.8em; margin-bottom: 0.5em; color:black">Combining with VLM and Grasping</h3>
+    <div class="columns">
+      <div class="column has-text-centered">
+        <video id="dist1"
+          controls
+          muted
+          autoplay
+          loop controlsList="nodownload"
+          width="99%">
+          <source src="medias/videos/vlm/card.mp4"
+          type="video/mp4">
+        </video>
+      </div>
+      <div class="column has-text-centered">
+        <video id="dist1"
+          controls
+          muted
+          autoplay
+          loop controlsList="nodownload"
+          width="99%">
+          <source src="medias/videos/vlm/box.mp4"
+          type="video/mp4">
+        </video>
+      </div>
+      <div class="column has-text-centered">
+        <video id="dist1"
+          controls
+          muted
+          autoplay
+          loop controlsList="nodownload"
+          width="99%">
+          <source src="medias/videos/vlm/hand.mp4"
+          type="video/mp4">
+        </video>
+      </div>
+    </div>
+
+    <h3 class="title is-4" style="margin-top: 1.8em; margin-bottom: 0.5em; color:black">Quantitative Results in the Real World</h3>
+    <div class="columns is-vcentered  is-centered">
+      <img style="margin-top: 15px; width: 90%;" src="medias/images/real_table.jpeg" class="method-image" />
+    </div>
+    <p class="content has-text-justified">
+      We evaluate our model's generalization ability by comparing it with CORN, which relies on an external tracking module for object pose estimation in real-world experiments. Our method achieves accurate manipulation across diverse objects without external pose tracking, significantly outperforming CORN with an average success rate of 68% versus 36%.
+    </p>
+  
+</div>
+
+<hr style="margin-top: 1em;">
+<div class="rows is-centered has-text-centered">
+  <h2 class="title is-3" style="margin-bottom: 0.5em; color:black"><i>DyWA</i> Methods</h2>
+  </br>
+  <div class="columns is-vcentered  is-centered">
+    <img style="margin: 15px 20px; width: 90%;" src="medias/images/pipeline.jpeg" class="method-image" />
+  </div>
+  <p class="content has-text-justified">
+    Our World Action Model processes the embeddings of the current observation (partial point cloud, end-effector pose, and joint state) and the goal point cloud (transformed from the initial partial observation) to predict the robot action and next state. Additionally, an adaptation module encodes historical observations and actions, decoding them into the dynamics embedding that conditions the model via FiLM. A pre-trained RL teacher policy (right) supervises both the action and adaptation embedding using privileged full point cloud and physics parameter embeddings.
+  </p>
+</div>
+
+<br>
+<hr style="margin-top: 1em;">
+<h2 class="title is-3 is-centered has-text-centered" style="color:black;">Acknowledgments</h2>
+<p style="text-align: left">
+  We would like to give special thanks to Jiayi Chen for fruitfull discussion.
+</p>
+
+
+<br>
+<hr style="margin-top: 1em;">
+<h2 class="title is-3 is-centered has-text-centered" style="color:black;">BibTeX</h2>
+<p class="bibtex" style="text-align: left">
+  @article{xue2025demogen, <br>
+  &nbsp;&nbsp;title={DemoGen: Synthetic Demonstration Generation for Data-Efficient Visuomotor Policy Learning}, <br>
+  &nbsp;&nbsp;author={Xue, Zhengrong and Deng, Shuying and Chen, Zhenyang and Wang, Yixuan and Yuan, Zhecheng and Xu, Huazhe}, <br>
+  &nbsp;&nbsp;journal={arXiv preprint arXiv:2502.16932}, <br>
+  &nbsp;&nbsp;year={2025} <br>
+  }
+</p>
+
+</section>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="content has-text-centered">
+          <p>
+            Website template borrowed from <a href="https://demo-generation.github.io/">DemoGen</a>. 
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('shuffle-video').addEventListener('click', function() {
+    var taskSelect = document.getElementById('task-selection');
+    var spatialSelect = document.getElementById('spatial-selection');
+    randomizeSelect(taskSelect);
+    randomizeSelect(spatialSelect);
+    console.log("Shuffle", taskSelect.value, spatialSelect.value)
+    SelectTestVideo();
+  });
+
+  function randomizeSelect(selectElement) {
+    var options = selectElement.options;
+    random_move = Math.random();
+    var randomIndex = Math.floor(Math.random() * options.length);
+    selectElement.selectedIndex = randomIndex;
+  }
+
+  function SelectTestVideo() {
+    var task_name = document.getElementById("task-selection").value;
+    var spatial_id = document.getElementById("spatial-selection").value;
+
+    console.log("SelectTestVideo", task_name, spatial_id)
+    var video = document.getElementById("test-video");
+    video.src = "media/videos/evaluations/" + task_name + "/" + spatial_id + ".mp4";
+    video.play();
+  }
+</script>
+
+<script>
+  document.getElementById('shuffle-obstacle').addEventListener('click', function() {
+    var objectSelect = document.getElementById('object-obstacle');
+    randomizeSelect(objectSelect);
+    console.log("Shuffle", objectSelect.value)
+    SelectObstacle();
+  });
+
+  function randomizeSelect(selectElement) {
+    var options = selectElement.options;
+    random_move = Math.random();
+    var randomIndex = Math.floor(Math.random() * options.length);
+    selectElement.selectedIndex = randomIndex;
+  }
+
+  function SelectObstacle() {
+    var object_obstacle = document.getElementById("object-obstacle").value;
+
+    console.log("SelectObstacle", object_obstacle)
+    var video = document.getElementById("test-obstacle");
+    video.src = "media/videos/obstacle/" + object_obstacle + ".mp4";
+    video.play();
+  }
+</script>
+
+
+<script>
+  document.getElementById('shuffle-disturb').addEventListener('click', function() {
+    var policySelect = document.getElementById('policy-disturb');
+    var directionSelect = document.getElementById('direction-disturb');
+    var numberSelect = document.getElementById('number-disturb');
+    randomizeSelect(policySelect);
+    randomizeSelect(directionSelect);
+    randomizeSelect(numberSelect);
+    console.log("Shuffle", policySelect.value, policySelect.value, numberSelect.value)
+    SelectDisturb();
+  });
+
+  function randomizeSelect(selectElement) {
+    var options = selectElement.options;
+    random_move = Math.random();
+    var randomIndex = Math.floor(Math.random() * options.length);
+    selectElement.selectedIndex = randomIndex;
+  }
+
+  function SelectDisturb() {
+    var policy = document.getElementById("policy-disturb").value;
+    var direction = document.getElementById("direction-disturb").value;
+    var number = document.getElementById("number-disturb").value;
+
+    console.log("SelectTestVideo", policy, direction, number)
+    var video = document.getElementById("test-disturb");
+    video.src = "media/videos/disturb_eval/" + policy + "/" + direction + "/" + number + ".mp4";
+    video.play();
+  }
+</script>
+
+<style>
+  .button.is-info.is-outlined:focus,
+  .button.is-info.is-outlined:active {
+    background-color: transparent;
+    border-color: black;
+    color: black;
+    box-shadow: none;
+  }
+
+  .button.is-info.is-outlined:hover {
+    background-color: black;
+    color: #fff;
+  }
+
+  .button.is-info.is-outlined:hover .icon ion-icon,
+  .button.is-info.is-outlined:hover span {
+    color: #fff;
+  }
+</style>
+
+</body>
+</html>
