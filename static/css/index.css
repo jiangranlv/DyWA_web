@@ -75,9 +75,11 @@ body {
 }
 
 .publication-venue {
+    display: inline-block;
     color: #555;
     width: fit-content;
     font-weight: bold;
+    text-align: center;
 }
 
 .publication-awards {
